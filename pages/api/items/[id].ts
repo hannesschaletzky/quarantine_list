@@ -6,18 +6,18 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let { body, method } = req;
-  let respBody = {};
   const db = getDB();
+  let {
+    body,
+    method,
+    query: { id },
+  } = req;
+  let respBody = {};
 
-  if (method === "POST") {
-    body = JSON.parse(body);
-    body.isCompleted = false;
-    respBody = await db.put(body);
-    res.statusCode = 201;
-  } else if (method === "GET") {
-    const { items: items } = await db.fetch();
-    respBody = items;
+  if (method === "PUT") {
+    // todo
+  } else if (method === "DELETE") {
+    respBody = await db.delete(id);
     res.statusCode = 200;
   }
   res.json(respBody);

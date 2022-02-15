@@ -5,6 +5,7 @@ import { Button } from "@/styles/UI_Elements";
 import { FormEvent, useEffect, useState } from "react";
 
 interface Item {
+  key: string;
   name: string;
   isCompleted: boolean;
 }
@@ -25,6 +26,11 @@ const Home: NextPage = () => {
       body: JSON.stringify({ name: newItem }),
     });
     await getItems();
+  };
+
+  const deleteItem = async (id: string) => {
+    const resp = fetch(`api/items/${id}`, { method: "delete" });
+    setTimeout(getItems, 200);
   };
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
@@ -62,8 +68,9 @@ const Home: NextPage = () => {
       <br />
       <div>
         {items.map((item, index) => (
-          <div key={index}>
+          <div className="flex gap-5" key={item.key}>
             {index + 1}. {item.name}
+            <div onClick={() => deleteItem(item.key)}>Delete</div>
           </div>
         ))}
       </div>
