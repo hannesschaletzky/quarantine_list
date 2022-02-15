@@ -61,7 +61,12 @@ const Home: NextPage = () => {
           property="og:description"
           content="Add your stuff and I'll buy it. Cheers ❤️"
         />
-        <meta property="og:image" itemProp="image" content="/corona.jpg"></meta>
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          itemProp="image"
+          content="public/corona.jpg"
+        ></meta>
       </Head>
 
       {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
@@ -96,6 +101,7 @@ const Home: NextPage = () => {
         />
         <Button type="submit">Add</Button>
       </form>
+      <br />
 
       <a
         href="https://github.com/hannesschaletzky/quarantine_list"
