@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { Button } from "@/styles/UI_Elements";
+import { Button, Input } from "@/styles/UI_Elements";
 import { FormEvent, useEffect, useState } from "react";
 
 interface Item {
@@ -25,6 +25,7 @@ const Home: NextPage = () => {
       method: "post",
       body: JSON.stringify({ name: newItem }),
     });
+    setNewItem("");
     await getItems();
   };
 
@@ -44,36 +45,48 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center">
       <Head>
         <title>Quarantine List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <style>
+          @import
+          url(&quot;https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap&quot;);
+          @import
+          url(&quot;https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap&quot;);
+        </style>
       </Head>
-      {/* <div className="bg-gray-100">I want following things:</div> */}
 
-      <h3>Add Task</h3>
-
-      <form onSubmit={(e) => submitForm(e)}>
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          autoComplete="name"
-          required
-          onChange={(e) => setNewItem(e.target.value)}
-        />
-        <button type="submit">Register</button>
-      </form>
-
+      <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div>
+      <br />
+      <div className="text-2xl font-Marker">Quarantine List</div>
       <br />
       <div>
         {items.map((item, index) => (
-          <div className="flex gap-5" key={item.key}>
-            {index + 1}. {item.name}
-            <div onClick={() => deleteItem(item.key)}>Delete</div>
+          <div className="flex gap-5 font-IndieFlower px-5" key={item.key}>
+            <div onClick={() => deleteItem(item.key)}>🗑</div>
+            <div className="break-all">
+              {index + 1}. {item.name}
+            </div>
           </div>
         ))}
       </div>
+
+      <form
+        className="flex flex-col gap-2 mt-2"
+        onSubmit={(e) => submitForm(e)}
+        autoComplete="off"
+      >
+        <Input
+          id="name"
+          type="text"
+          required
+          placeholder="Type something..."
+          value={newItem}
+          onChange={(e) => setNewItem(e.target.value)}
+        />
+        <Button type="submit">Append</Button>
+      </form>
     </div>
   );
 };
