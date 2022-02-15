@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Image from "next/image";
 import Head from "next/head";
 
 import { Button, Input } from "@/styles/UI_Elements";
@@ -57,9 +58,9 @@ const Home: NextPage = () => {
         </style>
       </Head>
 
-      <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div>
+      {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
       <br />
-      <div className="text-2xl font-Marker">Quarantine List</div>
+      <div className="text-2xl font-Marker">Quarantine 🦠 List</div>
       <br />
       <div>
         {items.map((item, index) => (
@@ -81,12 +82,22 @@ const Home: NextPage = () => {
           id="name"
           type="text"
           required
-          placeholder="Type something..."
+          placeholder="Just type...✏️"
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
         />
         <Button type="submit">Append</Button>
       </form>
+
+      <a
+        href="https://github.com/hannesschaletzky/quarantine_list"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="fixed bottom-5 left-5">
+          <Image src="/github.png" alt="GitHub" width={40} height={40} />
+        </div>
+      </a>
     </div>
   );
 };

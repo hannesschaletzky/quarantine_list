@@ -7,7 +7,7 @@ export const Button = styled.button`
   box-shadow: 2px 2px black; */
 
   appearance: button;
-  background-color: #1899d6;
+  background-color: #439500;
   border: solid transparent;
   border-radius: 16px;
   border-width: 0 0 4px;
@@ -38,8 +38,8 @@ export const Button = styled.button`
 
 export const Input = styled.input`
   text-align: center;
-  outline: 1px solid lightgray;
   border-radius: 8px;
+  border: none;
   padding: 8px;
   font-family: din-round, sans-serif;
 `;
