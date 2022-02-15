@@ -57,46 +57,42 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    // <div>HALLO</div>
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-start items-center h-full">
       <Head>
         <title>Quarantine List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
-          name="Corona Quarantine List"
-          content="Put your stuff on it and I am gonna buy it."
+          name="Quarantine 🦠 List"
+          content="Add your stuff and I'll buy it. Cheers ❤️"
         />
         <meta name="keywords" content="Corona, Quarantine, List, Buying, Fun" />
-        <meta property="og:title" content="Quarantine List" />
+        <meta property="og:title" content="Quarantine 🦠 List" />
         <meta
           property="og:description"
           content="Add your stuff and I'll buy it. Cheers ❤️"
         />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          itemProp="image"
-          content="public/corona.jpg"
-        ></meta>
       </Head>
 
-      {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
+      {/* HEADER */}
       <br />
-      <div className="text-2xl font-Marker">Quarantine 🦠 List</div>
+      <h2 className="text-2xl font-Marker">Quarantine 🦠 List</h2>
       <br />
 
+      {/* ITEMS */}
       {items.map((item, index) => (
         <div
           className="flex gap-5 px-5 font-IndieFlower text-xl"
           key={item.key}
         >
-          <div onClick={() => deleteItem(item.key)}>🗑</div>
+          <div onClick={() => deleteItem(item.key!)}>🗑</div>
           <div className="break-all">
             {index + 1}. {item.name}
           </div>
         </div>
       ))}
 
+      {/* FORM */}
       <form
         className="flex flex-col gap-2 mt-2"
         onSubmit={(e) => submitForm(e)}
@@ -114,15 +110,33 @@ const Home: NextPage = () => {
       </form>
       <br />
 
-      <a
-        href="https://github.com/hannesschaletzky/quarantine_list"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div className="fixed bottom-5 left-5">
-          <Image src="/github.png" alt="GitHub" width={40} height={40} />
+      {/* SPACER */}
+      <div className="flex-1"></div>
+
+      {/* FOOTER */}
+      <div className="flex gap-3 items-center">
+        <div className="text-sm font-Marker">
+          Made with ❤️ (and 🦠) by{" "}
+          <a
+            href="https://www.hschaletzky.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hannes
+          </a>
         </div>
-      </a>
+        <a
+          href="https://github.com/hannesschaletzky/quarantine_list"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="">
+            <Image src="/github.png" alt="GitHub" width={25} height={25} />
+          </div>
+        </a>
+      </div>
+
+      <br />
     </div>
   );
 };

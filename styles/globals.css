@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  height: 100%;
-  background-color: rgba(240, 128, 128, 0.596);
-}
-
 @font-face {
   font-family: "IndieFlower";
   src: url("/fonts/IndieFlower-Regular.ttf");
@@ -20,4 +15,18 @@ body {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background-color: rgba(240, 128, 128, 0.596);
+}
+
+#__next {
+  height: inherit !important;
 }

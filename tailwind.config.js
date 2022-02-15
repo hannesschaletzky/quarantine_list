@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       zIndex: {
         "-10": "-10",
-      },
+      }
     },
     fontFamily: {
       Marker: ["PermanentMarker", "cursive"],
