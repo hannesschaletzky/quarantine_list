@@ -6,3 +6,11 @@ body {
   height: 100%;
   background-color: rgba(240, 128, 128, 0.596);
 }
+
+@font-face {
+  font-family: "GochiHand";
+  src: url("/fonts/GochiHand-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}

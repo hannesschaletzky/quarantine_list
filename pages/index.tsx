@@ -51,19 +51,11 @@ const Home: NextPage = () => {
       <Head>
         <title>Quarantine List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <style>
-          @import
-          url(&quot;https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap&quot;);
-        </style>
-        <style>
-          @import
-          url(&quot;https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap&quot;);
-        </style>
       </Head>
 
       {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
       <br />
-      <div className="text-2xl">Quarantine 🦠 List</div>
+      <div className="text-2xl font-GochiHand">Quarantine 🦠 List</div>
       <br />
 
       {items.map((item, index) => (

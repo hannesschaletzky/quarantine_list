@@ -8,6 +8,7 @@ module.exports = {
       },
     },
     fontFamily: {
+      GochiHand: ["GochiHand"],
       Marker: ["Permanent Marker", "cursive"],
       IndieFlower: ["Indie Flower", "cursive"],
     },
