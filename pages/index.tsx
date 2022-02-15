@@ -54,6 +54,8 @@ const Home: NextPage = () => {
         <style>
           @import
           url(&quot;https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap&quot;);
+        </style>
+        <style>
           @import
           url(&quot;https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap&quot;);
         </style>
