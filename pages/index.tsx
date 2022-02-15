@@ -15,6 +15,7 @@ interface Item {
 const Home: NextPage = () => {
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const getItems = async () => {
     const resp = await fetch("api/items");
@@ -25,9 +26,11 @@ const Home: NextPage = () => {
       return d1.getTime() - d2.getTime();
     });
     setItems(items);
+    setLoading(false);
   };
 
   const createItem = async () => {
+    setLoading(true);
     const item: Item = {
       name: newItem,
       isCompleted: false,
@@ -42,8 +45,10 @@ const Home: NextPage = () => {
   };
 
   const deleteItem = async (id: string) => {
-    const resp = fetch(`api/items/${id}`, { method: "delete" });
-    setTimeout(getItems, 200);
+    setLoading(true);
+    fetch(`api/items/${id}`, { method: "delete" }).then(() => {
+      getItems();
+    });
   };
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
@@ -76,10 +81,18 @@ const Home: NextPage = () => {
 
       {/* HEADER */}
       <br />
-      <h2 className="text-2xl font-Marker">Quarantine 🦠 List</h2>
+      <h2 className="text-2xl font-Marker">
+        Quarantine{" "}
+        {loading ? <span className="loader">🦠</span> : <span>🦠</span>} List
+      </h2>
       <br />
 
       {/* ITEMS */}
+      {items.length == 0 && (
+        <div className="font-IndieFlower text-xl text-center">
+          Add your stuff and I&apos;ll buy it. <br /> Cheers ❤️
+        </div>
+      )}
       {items.map((item, index) => (
         <div
           className="flex gap-5 px-5 font-IndieFlower text-xl"
@@ -91,7 +104,6 @@ const Home: NextPage = () => {
           </div>
         </div>
       ))}
-
       {/* FORM */}
       <form
         className="flex flex-col gap-2 mt-2"
@@ -130,12 +142,9 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <div className="">
-            <Image src="/github.png" alt="GitHub" width={25} height={25} />
-          </div>
+          <Image src="/github.png" alt="GitHub" width={25} height={25} />
         </a>
       </div>
-
       <br />
     </div>
   );
