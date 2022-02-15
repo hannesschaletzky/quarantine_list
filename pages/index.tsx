@@ -51,15 +51,29 @@ const Home: NextPage = () => {
       <Head>
         <title>Quarantine List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="Corona Quarantine List"
+          content="Put your stuff on it and I am gonna buy it."
+        />
+        <meta name="keywords" content="Corona, Quarantine, List, Buying, Fun" />
+        <meta property="og:title" content="Quarantine List" />
+        <meta
+          property="og:description"
+          content="Add your stuff and I'll buy it. Cheers ❤️"
+        />
+        <meta property="og:image" itemProp="image" content="/corona.jpg"></meta>
       </Head>
 
       {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
       <br />
-      <div className="text-2xl font-GochiHand">Quarantine 🦠 List</div>
+      <div className="text-2xl font-Marker">Quarantine 🦠 List</div>
       <br />
 
       {items.map((item, index) => (
-        <div className="flex gap-5 px-5" key={item.key}>
+        <div
+          className="flex gap-5 px-5 font-IndieFlower text-xl"
+          key={item.key}
+        >
           <div onClick={() => deleteItem(item.key)}>🗑</div>
           <div className="break-all">
             {index + 1}. {item.name}
@@ -76,11 +90,11 @@ const Home: NextPage = () => {
           id="name"
           type="text"
           required
-          placeholder="Just type...✏️"
+          placeholder="Item..."
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
         />
-        <Button type="submit">Append</Button>
+        <Button type="submit">Add</Button>
       </form>
 
       <a

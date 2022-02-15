@@ -8,8 +8,15 @@ body {
 }
 
 @font-face {
-  font-family: "GochiHand";
-  src: url("/fonts/GochiHand-Regular.ttf");
+  font-family: "IndieFlower";
+  src: url("/fonts/IndieFlower-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PermanentMarker";
+  src: url("/fonts/PermanentMarker-Regular.ttf");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
