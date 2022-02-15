@@ -52,20 +52,20 @@ const Home: NextPage = () => {
         <title>Quarantine List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <style>
-          {/* @import
+          @import
           url(&quot;https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap&quot;);
           @import
-          url(&quot;https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap&quot;); */}
+          url(&quot;https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap&quot;);
         </style>
       </Head>
 
       {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
       <br />
-      <div className="text-2xl font-Marker">Quarantine 🦠 List</div>
+      <div className="text-2xl">Quarantine 🦠 List</div>
       <br />
 
       {items.map((item, index) => (
-        <div className="flex gap-5 font-IndieFlower px-5" key={item.key}>
+        <div className="flex gap-5 px-5" key={item.key}>
           <div onClick={() => deleteItem(item.key)}>🗑</div>
           <div className="break-all">
             {index + 1}. {item.name}
