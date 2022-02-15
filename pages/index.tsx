@@ -6,9 +6,10 @@ import { Button, Input } from "@/styles/UI_Elements";
 import { FormEvent, useEffect, useState } from "react";
 
 interface Item {
-  key: string;
+  key?: string; // set in database
   name: string;
   isCompleted: boolean;
+  createdAt: Date;
 }
 
 const Home: NextPage = () => {
@@ -17,14 +18,24 @@ const Home: NextPage = () => {
 
   const getItems = async () => {
     const resp = await fetch("api/items");
-    const items: Item[] = await resp.json();
+    let items: Item[] = await resp.json();
+    items.sort((a, b) => {
+      const d1 = new Date(a.createdAt);
+      const d2 = new Date(b.createdAt);
+      return d1.getTime() - d2.getTime();
+    });
     setItems(items);
   };
 
   const createItem = async () => {
+    const item: Item = {
+      name: newItem,
+      isCompleted: false,
+      createdAt: new Date(),
+    };
     const resp = await fetch("api/items", {
       method: "post",
-      body: JSON.stringify({ name: newItem }),
+      body: JSON.stringify(item),
     });
     setNewItem("");
     await getItems();

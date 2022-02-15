@@ -12,7 +12,6 @@ export default async function handler(
 
   if (method === "POST") {
     body = JSON.parse(body);
-    body.isCompleted = false;
     respBody = await db.put(body);
     res.statusCode = 201;
   } else if (method === "GET") {
