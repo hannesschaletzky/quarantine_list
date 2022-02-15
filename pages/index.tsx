@@ -46,24 +46,25 @@ const Home: NextPage = () => {
   // }, []);
 
   return (
-    <div>HALLO</div>
-    // <div className="flex flex-col justify-center items-center">
-    //   <Head>
-    //     <title>Quarantine List</title>
-    //     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    //     <style>
-    //       @import
-    //       url(&quot;https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap&quot;);
-    //       @import
-    //       url(&quot;https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap&quot;);
-    //     </style>
-    //   </Head>
+    // <div>HALLO</div>
+    <div className="flex flex-col justify-center items-center">
+      <Head>
+        <title>Quarantine List</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <style>
+          @import
+          url(&quot;https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap&quot;);
+          @import
+          url(&quot;https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap&quot;);
+        </style>
+      </Head>
 
-    //   {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
-    //   <br />
-    //   <div className="text-2xl font-Marker">Quarantine 🦠 List</div>
-    //   <br />
-    //   <div>
+      {/* <div className="absolute top-0 left-0 bottom-0 right-0 bg-gray-200 -z-10"></div> */}
+      <br />
+      <div className="text-2xl font-Marker">Quarantine 🦠 List</div>
+      <br />
+    </div>
+
     //     {items.map((item, index) => (
     //       <div className="flex gap-5 font-IndieFlower px-5" key={item.key}>
     //         <div onClick={() => deleteItem(item.key)}>🗑</div>
