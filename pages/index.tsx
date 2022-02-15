@@ -72,34 +72,33 @@ const Home: NextPage = () => {
           </div>
         </div>
       ))}
+
+      <form
+        className="flex flex-col gap-2 mt-2"
+        onSubmit={(e) => submitForm(e)}
+        autoComplete="off"
+      >
+        <Input
+          id="name"
+          type="text"
+          required
+          placeholder="Just type...✏️"
+          value={newItem}
+          onChange={(e) => setNewItem(e.target.value)}
+        />
+        <Button type="submit">Append</Button>
+      </form>
+
+      <a
+        href="https://github.com/hannesschaletzky/quarantine_list"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="fixed bottom-5 left-5">
+          <Image src="/github.png" alt="GitHub" width={40} height={40} />
+        </div>
+      </a>
     </div>
-
-    //   <form
-    //     className="flex flex-col gap-2 mt-2"
-    //     onSubmit={(e) => submitForm(e)}
-    //     autoComplete="off"
-    //   >
-    //     <Input
-    //       id="name"
-    //       type="text"
-    //       required
-    //       placeholder="Just type...✏️"
-    //       value={newItem}
-    //       onChange={(e) => setNewItem(e.target.value)}
-    //     />
-    //     <Button type="submit">Append</Button>
-    //   </form>
-
-    //   <a
-    //     href="https://github.com/hannesschaletzky/quarantine_list"
-    //     target="_blank"
-    //     rel="noopener noreferrer"
-    //   >
-    //     <div className="fixed bottom-5 left-5">
-    //       <Image src="/github.png" alt="GitHub" width={40} height={40} />
-    //     </div>
-    //   </a>
-    // </div>
   );
 };
 
