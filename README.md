@@ -1,5 +1,3 @@
-This is a boilerplate application for NextJS. 
+A shopping list for quarantine.
 
-It includes: 
-- tailwindcss
-- styled components (server side rendered)
+Friends can add items here and I go buy them.
