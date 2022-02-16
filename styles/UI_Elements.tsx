@@ -1,8 +1,4 @@
-import styled, {
-  CSSObject,
-  keyframes,
-  SimpleInterpolation,
-} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Button = styled.button`
   appearance: button;

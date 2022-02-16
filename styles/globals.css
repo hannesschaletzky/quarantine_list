@@ -44,35 +44,3 @@ body {
     transform: rotate(360deg);
   }
 }
-
-.move {
-  /* add other webkit animations as well */
-  animation: myanim 2s infinite;
-}
-
-@keyframes myanim {
-  0% {
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 100px;
-  }
-  66% {
-    top: 0;
-    left: 800px;
-    width: 100px;
-    height: 100px;
-  }
-  67% {
-    top: 0;
-    left: 800px;
-    width: 200px;
-    height: 200px;
-  }
-  100% {
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 200px;
-  }
-}

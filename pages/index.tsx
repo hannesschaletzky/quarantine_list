@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
 
+import styled, { css, Keyframes, keyframes } from "styled-components";
+
 import {
   Button,
   Input,
@@ -84,8 +86,126 @@ const Home: NextPage = () => {
     getItems();
   }, []);
 
+  const getRndPct = (min: number, max: number): string => {
+    return `${Math.floor(Math.random() * (max - min + 1) + min)}%`;
+  };
+
+  enum Side {
+    left,
+    top,
+    right,
+    bottom,
+  }
+
+  const get = (
+    side: Side,
+    per: string,
+    val: string = getRndPct(0, 95)
+  ): string => {
+    switch (side) {
+      case Side.left:
+        return `${per}% {
+        top: ${val};
+        left: 0;
+      }`;
+      case Side.top:
+        return `${per}% {
+        top: 0;
+        left: ${val};
+      }`;
+      case Side.right:
+        return `${per}% {
+        top: ${val};
+        left: 95%;
+      }`;
+      case Side.bottom:
+        return `${per}% {
+        top: 93%;
+        left: ${val};
+      }`;
+    }
+  };
+
+  const moveInCircles = (side: Side, start: string) => {
+    //start = getRndPct(0, 95);
+    console.log(start);
+    switch (side) {
+      case Side.left:
+        return keyframes`
+        ${get(Side.left, "0", start)}
+        ${get(Side.top, "25")}
+        ${get(Side.right, "50")}
+        ${get(Side.bottom, "75")}
+        ${get(Side.left, "100", start)}
+      `;
+      case Side.top:
+        return keyframes`
+        ${get(Side.top, "0", start)}
+        ${get(Side.right, "25")}
+        ${get(Side.bottom, "50")}
+        ${get(Side.left, "75")}
+        ${get(Side.top, "100", start)}
+      `;
+      case Side.right:
+        return keyframes`
+        ${get(Side.right, "0", start)}
+        ${get(Side.bottom, "25")}
+        ${get(Side.left, "50")}
+        ${get(Side.top, "75")}
+        ${get(Side.right, "100", start)}
+      `;
+      case Side.bottom:
+        return keyframes`
+        ${get(Side.bottom, "0", start)}
+        ${get(Side.left, "25")}
+        ${get(Side.top, "50")}
+        ${get(Side.right, "75")}
+        ${get(Side.bottom, "100", start)}
+      `;
+    }
+  };
+
+  const rotate = keyframes`
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  `;
+
+  const TEST = styled.div`
+    background-color: red;
+  `;
+
+  interface Props {
+    start: string;
+    kf: Keyframes;
+  }
+
+  const Virus = styled.div<Props>`
+    position: absolute;
+    font-size: 45px;
+    z-index: -1;
+  `;
+
+  const VirusTEST = styled(Virus)`
+    animation: ${rotate} 2s linear infinite,
+      ${({ kf }) => kf} 10s linear infinite;
+  `;
+
   return (
     <div className="flex flex-col justify-start items-center h-full">
+      {/* <div>TEST</div>
+      <TEST>TEST1</TEST>
+
+      <VirusTEST start={"25%"} kf={moveInCircles(Side.left, "20%")}>
+        A
+      </VirusTEST>
+      <VirusTEST start={"25%"} kf={moveInCircles(Side.left, "40%")}>
+        B
+      </VirusTEST> */}
+
       <Head>
         <title>Quarantine List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
