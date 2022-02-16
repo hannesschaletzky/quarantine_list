@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
 
-import { Button, Input } from "@/styles/UI_Elements";
+import { Button, Input, Virus } from "@/styles/UI_Elements";
 import { FormEvent, useEffect, useState } from "react";
 
 interface Item {
@@ -16,6 +16,8 @@ const Home: NextPage = () => {
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [left, setLeft] = useState(5);
 
   const getItems = async () => {
     const resp = await fetch("api/items");
@@ -59,6 +61,9 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     getItems();
+    // setInterval(() => {
+    //   setLeft(Math.random() * 100);
+    // }, 200);
   }, []);
 
   return (
@@ -79,6 +84,11 @@ const Home: NextPage = () => {
         <meta property="og:type" content="website" />
       </Head>
 
+      {/* FLYING VIRUS */}
+      <Virus left={left} y={10}>
+        🦠
+      </Virus>
+
       {/* HEADER */}
       <br />
       <h2 className="text-2xl font-Marker">
@@ -88,7 +98,7 @@ const Home: NextPage = () => {
       <br />
 
       {/* ITEMS */}
-      {items.length == 0 && (
+      {items.length == 0 && loading! && (
         <div className="font-IndieFlower text-xl text-center">
           Add your stuff and I&apos;ll buy it. <br /> Cheers ❤️
         </div>

@@ -1,11 +1,6 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Button = styled.button`
-  /* background-color: lightgray;
-  border-radius: 8px;
-  color: black;
-  box-shadow: 2px 2px black; */
-
   appearance: button;
   background-color: #439500;
   border: solid transparent;
@@ -42,4 +37,54 @@ export const Input = styled.input`
   border: none;
   padding: 8px;
   font-family: din-round, sans-serif;
+`;
+
+interface Props {
+  left: number;
+  y: number;
+}
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const move = keyframes`
+  0% {
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+  }
+  66% {
+    top: 0;
+    left: 800px;
+    width: 100px;
+    height: 100px;
+  }
+  67% {
+    top: 0;
+    left: 800px;
+    width: 200px;
+    height: 200px;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+  }
+`;
+
+export const Virus = styled.div<Props>`
+  position: absolute;
+  font-size: 45px;
+  top: 5%;
+  left: ${({ left }) => left}%;
+  animation: ${rotate} 2s linear infinite, ${move} 5s linear infinite;
+  z-index: -1;
 `;
