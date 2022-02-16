@@ -18,6 +18,10 @@ export default async function handler(
     const { items: items } = await db.fetch();
     respBody = items;
     res.statusCode = 200;
+  } else if (method === "PUT") {
+    body = JSON.parse(body);
+    respBody = await db.put(body);
+    res.statusCode = 200;
   }
   res.json(respBody);
 }

@@ -14,6 +14,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 interface Item {
   key?: string; // set in database
+  inCart: boolean;
   name: string;
   isCompleted: boolean;
   createdAt: Date;
@@ -23,8 +24,6 @@ const Home: NextPage = () => {
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [left, setLeft] = useState(5);
 
   const getItems = async () => {
     const resp = await fetch("api/items");
@@ -44,6 +43,7 @@ const Home: NextPage = () => {
       name: newItem,
       isCompleted: false,
       createdAt: new Date(),
+      inCart: false,
     };
     const resp = await fetch("api/items", {
       method: "post",
@@ -53,11 +53,25 @@ const Home: NextPage = () => {
     await getItems();
   };
 
-  const deleteItem = async (id: string) => {
+  const deleteItem = async (key: string) => {
     setLoading(true);
-    fetch(`api/items/${id}`, { method: "delete" }).then(() => {
+    fetch(`api/items/${key}`, { method: "delete" }).then(() => {
       getItems();
     });
+  };
+
+  const updateItem = async (item: Item) => {
+    setLoading(true);
+    const resp = await fetch("api/items", {
+      method: "put",
+      body: JSON.stringify(item),
+    });
+    await getItems();
+  };
+
+  const toggleCart = (item: Item) => {
+    item.inCart = !item.inCart;
+    updateItem(item);
   };
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
@@ -68,9 +82,6 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     getItems();
-    // setInterval(() => {
-    //   setLeft(Math.random() * 100);
-    // }, 200);
   }, []);
 
   return (
@@ -106,7 +117,7 @@ const Home: NextPage = () => {
       <br />
 
       {/* ITEMS */}
-      {items.length == 0 && loading! && (
+      {items.length == 0 && !loading && (
         <div className="font-IndieFlower text-xl text-center">
           Add your stuff and I&apos;ll buy it. <br /> Cheers ❤️
         </div>
@@ -116,12 +127,25 @@ const Home: NextPage = () => {
           className="flex gap-5 px-5 font-IndieFlower text-xl"
           key={item.key}
         >
-          <div onClick={() => deleteItem(item.key!)}>🗑</div>
+          <div onClick={() => deleteItem(item.key!)}>❌</div>
           <div className="break-all">
-            {index + 1}. {item.name}
+            {item.inCart && (
+              <s>
+                {index + 1}. {item.name}
+              </s>
+            )}
+            {!item.inCart && (
+              <div>
+                {index + 1}. {item.name}
+              </div>
+            )}
+          </div>
+          <div className="" onClick={() => toggleCart(item)}>
+            🛒
           </div>
         </div>
       ))}
+
       {/* FORM */}
       <form
         className="flex flex-col gap-2 mt-2"
