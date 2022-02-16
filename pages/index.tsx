@@ -2,7 +2,14 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
 
-import { Button, Input, Virus } from "@/styles/UI_Elements";
+import {
+  Button,
+  Input,
+  VirusLeft,
+  VirusTop,
+  VirusRight,
+  VirusBottom,
+} from "@/styles/UI_Elements";
 import { FormEvent, useEffect, useState } from "react";
 
 interface Item {
@@ -85,9 +92,10 @@ const Home: NextPage = () => {
       </Head>
 
       {/* FLYING VIRUS */}
-      <Virus left={left} y={10}>
-        🦠
-      </Virus>
+      <VirusLeft>🦠</VirusLeft>
+      <VirusTop>🦠</VirusTop>
+      <VirusRight>🦠</VirusRight>
+      <VirusBottom>🦠</VirusBottom>
 
       {/* HEADER */}
       <br />
