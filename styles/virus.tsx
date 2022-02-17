@@ -29,29 +29,31 @@ const getRndPct = (min: number = 0, max: number = 95): string => {
 // create side bouncing point
 const get = (
   side: Side,
-  per: string,
-  val: string = getRndPct(0, 95)
+  step: string,
+  distance: string = getRndPct(0, 90)
 ): string => {
+  const width = document.body.scrollWidth;
+  const height = document.body.scrollHeight;
   switch (side) {
     case Side.left:
-      return `${per}% {
-        top: ${val};
+      return `${step}% {
+        top: ${distance};
         left: 0;
       }`;
     case Side.top:
-      return `${per}% {
+      return `${step}% {
         top: 0;
-        left: ${val};
+        left: ${distance};
       }`;
     case Side.right:
-      return `${per}% {
-        top: ${val};
-        left: 80%;
+      return `${step}% {
+        top: ${distance};
+        left: ${width - 50}px;
       }`;
     case Side.bottom:
-      return `${per}% {
-        top: 93%;
-        left: ${val};
+      return `${step}% {
+        top: ${height - 50}px;
+        left: ${distance};
       }`;
   }
 };
@@ -129,8 +131,13 @@ interface Virus {
 
 export const Virus = styled.div<Virus>`
   position: absolute;
-  font-size: 45px;
+  font-size: 40px;
+  width: 50px;
+  height: 50px;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   animation: ${({ rotKF }) => rotKF} ${({ rotS }) => rotS}s linear infinite,
     ${({ moveKF }) => moveKF} ${({ moveS }) => moveS}s linear infinite;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
