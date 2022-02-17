@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
-
-import { Button, Input, Virus, moveInCircles } from "@/styles/UI_Elements";
 import { FormEvent, useEffect, useState } from "react";
+import { Button, Input } from "@/styles/UI_Elements";
+import { Virus, moveInCircles, rotateClockWise } from "@/styles/virus";
 
 interface Item {
   key?: string; // set in database
@@ -73,9 +73,30 @@ const Home: NextPage = () => {
     return false;
   };
 
-  const spawnVirus = (rotS: number, moveS: number) => {
+  const spawnVirus = (
+    rotS: number,
+    moveS: number,
+    clockWise: boolean = true
+  ) => {
+    if (clockWise) {
+      return (
+        <Virus
+          rotS={rotS}
+          rotKF={rotateClockWise(true)}
+          moveS={moveS}
+          moveKF={moveInCircles(true)}
+        >
+          🦠
+        </Virus>
+      );
+    }
     return (
-      <Virus rotS={rotS} moveS={moveS} moveKF={moveInCircles()}>
+      <Virus
+        rotS={rotS}
+        rotKF={rotateClockWise(false)}
+        moveS={moveS}
+        moveKF={moveInCircles(false)}
+      >
         🦠
       </Virus>
     );
@@ -104,10 +125,8 @@ const Home: NextPage = () => {
       </Head>
 
       {/* FLYING VIRUS */}
-      {spawnVirus(3, 12)}
-      {spawnVirus(2.5, 11)}
-      {spawnVirus(2, 10)}
-      {spawnVirus(1.5, 9)}
+      {spawnVirus(3, 5)}
+      {spawnVirus(3, 5, false)}
 
       {/* HEADER */}
       <br />
