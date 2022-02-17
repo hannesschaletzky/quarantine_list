@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { Keyframes, keyframes } from "styled-components";
 
 export const Button = styled.button`
   appearance: button;
@@ -39,17 +39,36 @@ export const Input = styled.input`
   font-family: din-round, sans-serif;
 `;
 
-const getRndPct = (min: number, max: number): string => {
-  return `${Math.floor(Math.random() * (max - min + 1) + min)}%`;
-};
-
-export enum Side {
+//
+//  VIRUS
+//
+enum Side {
   left,
   top,
   right,
   bottom,
 }
 
+const getRndSide = () => {
+  switch (getRndPct(0, 3)) {
+    case "0%":
+      return Side.left;
+    case "1%":
+      return Side.top;
+    case "2%":
+      return Side.right;
+    case "3%":
+      return Side.bottom;
+    default:
+      return Side.right;
+  }
+};
+
+const getRndPct = (min: number = 0, max: number = 95): string => {
+  return `${Math.floor(Math.random() * (max - min + 1) + min)}%`;
+};
+
+// create side bouncing point
 const get = (
   side: Side,
   per: string,
@@ -79,12 +98,14 @@ const get = (
   }
 };
 
-const rndFrame = (side: Side) => {
-  const start = getRndPct(0, 95);
-  // circle has to start/end at same spot
+export const moveInCircles = (
+  side: Side = getRndSide(),
+  start: string = getRndPct()
+) => {
+  console.log(start);
   switch (side) {
     case Side.left:
-      return `
+      return keyframes`
         ${get(Side.left, "0", start)}
         ${get(Side.top, "25")}
         ${get(Side.right, "50")}
@@ -92,7 +113,7 @@ const rndFrame = (side: Side) => {
         ${get(Side.left, "100", start)}
       `;
     case Side.top:
-      return `
+      return keyframes`
         ${get(Side.top, "0", start)}
         ${get(Side.right, "25")}
         ${get(Side.bottom, "50")}
@@ -100,7 +121,7 @@ const rndFrame = (side: Side) => {
         ${get(Side.top, "100", start)}
       `;
     case Side.right:
-      return `
+      return keyframes`
         ${get(Side.right, "0", start)}
         ${get(Side.bottom, "25")}
         ${get(Side.left, "50")}
@@ -108,7 +129,7 @@ const rndFrame = (side: Side) => {
         ${get(Side.right, "100", start)}
       `;
     case Side.bottom:
-      return `
+      return keyframes`
         ${get(Side.bottom, "0", start)}
         ${get(Side.left, "25")}
         ${get(Side.top, "50")}
@@ -117,8 +138,6 @@ const rndFrame = (side: Side) => {
       `;
   }
 };
-
-const moveInCircles = (side: Side) => keyframes`${rndFrame(side)}`;
 
 const rotate = keyframes`
   from {
@@ -129,62 +148,16 @@ const rotate = keyframes`
   }
 `;
 
-const Virus = styled.div`
+interface Virus {
+  moveKF: Keyframes; // moving: keyframe
+  moveS: number; // moving: seconds
+  rotS: number; // rotation: seconds
+}
+
+export const Virus = styled.div<Virus>`
   position: absolute;
   font-size: 45px;
   z-index: -1;
+  animation: ${rotate} ${({ rotS }) => rotS}s linear infinite,
+    ${({ moveKF }) => moveKF} ${({ moveS }) => moveS}s linear infinite;
 `;
-
-export const VirusLeft = styled(Virus)`
-  top: 5%;
-  animation: ${rotate} 2s linear infinite,
-    ${moveInCircles(Side.left)} 10s linear infinite;
-`;
-
-export const VirusTop = styled(Virus)`
-  top: 0%;
-  animation: ${rotate} 2s linear infinite,
-    ${moveInCircles(Side.top)} 10s linear infinite;
-`;
-
-export const VirusRight = styled(Virus)`
-  top: 5%;
-  animation: ${rotate} 2s linear infinite,
-    ${moveInCircles(Side.right)} 10s linear infinite;
-`;
-
-export const VirusBottom = styled(Virus)`
-  top: 93%;
-  animation: ${rotate} 2s linear infinite,
-    ${moveInCircles(Side.bottom)} 10s linear infinite;
-`;
-
-// const moveInCircles = keyframes`
-
-//   /* ${getLeft("0%")} */
-//   // left
-//   0% {
-//     top: ${getRndPct()};
-//     left: 0;
-//   }
-//   // top
-//   20% {
-//     top: 0%;
-//     left: 40%;
-//   }
-//   // right
-//   40% {
-//     top: 60%;
-//     left: 100%;
-//   }
-//   // bottom
-//   60% {
-//     top: 100%;
-//     left: 20%;
-//   }
-//   //must be equal to 0% value
-//   100% {
-//     top: 20%;
-//     left: 0;
-//   }
-// `;
