@@ -117,7 +117,7 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-start items-center h-full">
+    <div className="flex flex-col justify-start items-center h-full overflow-x-hidden">
       <Head>
         <title>Quarantine List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
