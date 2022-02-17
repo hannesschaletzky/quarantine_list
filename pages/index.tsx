@@ -1,7 +1,13 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
-import { FormEvent, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { Button, Input } from "@/styles/UI_Elements";
 import { Virus, moveInCircles, rotateClockWise } from "@/styles/virus";
 
@@ -17,6 +23,12 @@ const Home: NextPage = () => {
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [Virus1, setVirus1] = useState<JSX.Element>();
+  const [Virus2, setVirus2] = useState<JSX.Element>();
+  const [Virus3, setVirus3] = useState<JSX.Element>();
+  const [Virus4, setVirus4] = useState<JSX.Element>();
+  const [Virus5, setVirus5] = useState<JSX.Element>();
 
   const getItems = async () => {
     const resp = await fetch("api/items");
@@ -74,6 +86,7 @@ const Home: NextPage = () => {
   };
 
   const spawnVirus = (
+    remove: () => void,
     rotS: number,
     moveS: number,
     clockWise: boolean = true
@@ -84,6 +97,7 @@ const Home: NextPage = () => {
         rotKF={rotateClockWise(clockWise)}
         moveS={moveS}
         moveKF={moveInCircles(clockWise)}
+        onClick={() => remove()}
       >
         🦠
       </Virus>
@@ -91,6 +105,14 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
+    let virus: JSX.Element[] = [];
+
+    setVirus1(spawnVirus(() => setVirus1(<div></div>), 3, 10));
+    setVirus2(spawnVirus(() => setVirus2(<div></div>), 2, 8));
+    setVirus3(spawnVirus(() => setVirus3(<div></div>), 3, 11, false));
+    setVirus4(spawnVirus(() => setVirus4(<div></div>), 3.5, 12, false));
+    setVirus5(spawnVirus(() => setVirus5(<div></div>), 4, 13));
+
     getItems();
   }, []);
 
@@ -113,11 +135,11 @@ const Home: NextPage = () => {
       </Head>
 
       {/* FLYING VIRUS */}
-      {spawnVirus(3, 10)}
-      {spawnVirus(2, 8)}
-      {spawnVirus(3, 11, false)}
-      {spawnVirus(3.5, 12, false)}
-      {spawnVirus(4, 13)}
+      {Virus1}
+      {Virus2}
+      {Virus3}
+      {Virus4}
+      {Virus5}
 
       {/* HEADER */}
       <br />

@@ -130,7 +130,7 @@ interface Virus {
 export const Virus = styled.div<Virus>`
   position: absolute;
   font-size: 45px;
-  z-index: -1;
+  z-index: 1;
   animation: ${({ rotKF }) => rotKF} ${({ rotS }) => rotS}s linear infinite,
     ${({ moveKF }) => moveKF} ${({ moveS }) => moveS}s linear infinite;
 `;
