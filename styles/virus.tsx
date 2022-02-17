@@ -46,7 +46,7 @@ const get = (
     case Side.right:
       return `${per}% {
         top: ${val};
-        left: 95%;
+        left: 80%;
       }`;
     case Side.bottom:
       return `${per}% {
@@ -133,4 +133,6 @@ export const Virus = styled.div<Virus>`
   z-index: 1;
   animation: ${({ rotKF }) => rotKF} ${({ rotS }) => rotS}s linear infinite,
     ${({ moveKF }) => moveKF} ${({ moveS }) => moveS}s linear infinite;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent; /* For some Androids */
 `;
