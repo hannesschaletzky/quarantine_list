@@ -78,24 +78,12 @@ const Home: NextPage = () => {
     moveS: number,
     clockWise: boolean = true
   ) => {
-    if (clockWise) {
-      return (
-        <Virus
-          rotS={rotS}
-          rotKF={rotateClockWise(true)}
-          moveS={moveS}
-          moveKF={moveInCircles(true)}
-        >
-          🦠
-        </Virus>
-      );
-    }
     return (
       <Virus
         rotS={rotS}
-        rotKF={rotateClockWise(false)}
+        rotKF={rotateClockWise(clockWise)}
         moveS={moveS}
-        moveKF={moveInCircles(false)}
+        moveKF={moveInCircles(clockWise)}
       >
         🦠
       </Virus>
@@ -125,8 +113,11 @@ const Home: NextPage = () => {
       </Head>
 
       {/* FLYING VIRUS */}
-      {spawnVirus(3, 5)}
-      {spawnVirus(3, 5, false)}
+      {spawnVirus(3, 10)}
+      {spawnVirus(2, 8)}
+      {spawnVirus(3, 11, false)}
+      {spawnVirus(3.5, 12, false)}
+      {spawnVirus(4, 13)}
 
       {/* HEADER */}
       <br />
