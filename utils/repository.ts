@@ -1,4 +1,4 @@
-import { Item } from "@/utils/_types";
+import { Item } from "@/utils/types";
 
 export const allItems = (listId: string) => {
   return new Promise<Item[]>(async (resolve) => {

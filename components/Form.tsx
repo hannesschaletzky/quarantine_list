@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { Item } from "@/utils/_types";
+import { Item } from "@/utils/types";
 import { Button, Input } from "@/styles/UI_Elements";
 import { createItem } from "@/utils/repository";
 

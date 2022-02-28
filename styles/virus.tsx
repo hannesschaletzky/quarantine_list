@@ -142,4 +142,6 @@ export const Virus = styled.div<Virus>`
     ${({ moveKF }) => moveKF} ${({ moveS }) => moveS}s linear infinite;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent; /* For some Androids */
+  user-select: none;
+  cursor: pointer;
 `;

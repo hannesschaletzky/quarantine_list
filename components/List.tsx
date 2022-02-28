@@ -1,4 +1,4 @@
-import { Item } from "@/utils/_types";
+import { Item } from "@/utils/types";
 import { deleteItem, updateItem } from "@/utils/repository";
 
 const Items = (props: { items: Item[]; reload: () => void }) => {
@@ -23,7 +23,12 @@ const Items = (props: { items: Item[]; reload: () => void }) => {
           className="flex gap-5 px-5 font-IndieFlower text-xl"
           key={item.key}
         >
-          <div onClick={() => deleteClick(item.key!)}>❌</div>
+          <div
+            className="cursor-pointer"
+            onClick={() => deleteClick(item.key!)}
+          >
+            ❌
+          </div>
           <div className="break-all">
             {item.inCart && (
               <s>
@@ -36,7 +41,7 @@ const Items = (props: { items: Item[]; reload: () => void }) => {
               </div>
             )}
           </div>
-          <div className="" onClick={() => toggleCart(item)}>
+          <div className="cursor-pointer" onClick={() => toggleCart(item)}>
             🛒
           </div>
         </div>

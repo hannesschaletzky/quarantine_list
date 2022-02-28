@@ -14,11 +14,9 @@ export default async function handler(
   } = req;
   let respBody = {};
 
-  if (method === "PUT") {
-    // todo
-  } else if (method === "DELETE") {
+  if (method === "DELETE") {
     respBody = await db.delete(id);
     res.statusCode = 200;
+    res.json(respBody);
   }
-  res.json(respBody);
 }

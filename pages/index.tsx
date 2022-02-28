@@ -8,7 +8,7 @@ import { Virus, moveInCircles, rotateClockWise } from "@/styles/virus";
 import Items from "@/components/List";
 import Form from "@/components/Form";
 
-import { Item } from "@/utils/_types";
+import { Item } from "@/utils/types";
 import { allItems } from "@/utils/repository";
 
 const createRandomID = (length: number) => {
@@ -127,7 +127,7 @@ const Home: NextPage = () => {
       {/* HEADER */}
       <br />
       <h2
-        className="text-2xl font-Marker"
+        className="font-Marker text-2xl cursor-pointer"
         onClick={() => (window.location.href = `/`)}
       >
         Quarantine{" "}
@@ -155,7 +155,8 @@ const Home: NextPage = () => {
         <div className="className=flex flex-col gap-2 mt-2 mx-24">
           <div className="font-IndieFlower text-xl text-center">
             Create a list and let your friends know what they need to buy for
-            you. 🛒
+            your quarantine. 🛒 <br /> Also, shoot the virus to save the
+            planet!! ❤️
           </div>
           <br />
           <Button onClick={() => createList()}>Create List</Button>
