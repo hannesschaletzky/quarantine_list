@@ -15,7 +15,7 @@ export default async function handler(
     respBody = await db.put(body);
     res.statusCode = 201;
   } else if (method === "GET") {
-    const { items: items } = await db.fetch();
+    const { items: items } = await db.fetch({ listId: req.query.id });
     respBody = items;
     res.statusCode = 200;
   } else if (method === "PUT") {

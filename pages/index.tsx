@@ -1,89 +1,37 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { Button, Input } from "@/styles/UI_Elements";
+import { Button } from "@/styles/UI_Elements";
+import { useEffect, useRef, useState } from "react";
 import { Virus, moveInCircles, rotateClockWise } from "@/styles/virus";
 
-interface Item {
-  key?: string; // set in database
-  inCart: boolean;
-  name: string;
-  isCompleted: boolean;
-  createdAt: Date;
-}
+import Items from "@/components/List";
+import Form from "@/components/Form";
+
+import { Item } from "@/utils/_types";
+import { allItems } from "@/utils/repository";
+
+const createRandomID = (length: number) => {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
 
 const Home: NextPage = () => {
-  const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const refListId = useRef("");
 
   const [Virus1, setVirus1] = useState<JSX.Element>();
   const [Virus2, setVirus2] = useState<JSX.Element>();
   const [Virus3, setVirus3] = useState<JSX.Element>();
   const [Virus4, setVirus4] = useState<JSX.Element>();
   const [Virus5, setVirus5] = useState<JSX.Element>();
-
-  const getItems = async () => {
-    const resp = await fetch("api/items");
-    let items: Item[] = await resp.json();
-    items.sort((a, b) => {
-      const d1 = new Date(a.createdAt);
-      const d2 = new Date(b.createdAt);
-      return d1.getTime() - d2.getTime();
-    });
-    setItems(items);
-    setLoading(false);
-  };
-
-  const createItem = async () => {
-    setLoading(true);
-    const item: Item = {
-      name: newItem,
-      isCompleted: false,
-      createdAt: new Date(),
-      inCart: false,
-    };
-    const resp = await fetch("api/items", {
-      method: "post",
-      body: JSON.stringify(item),
-    });
-    setNewItem("");
-    await getItems();
-  };
-
-  const deleteItem = async (key: string) => {
-    setLoading(true);
-    fetch(`api/items/${key}`, { method: "delete" }).then(() => {
-      getItems();
-    });
-  };
-
-  const updateItem = async (item: Item) => {
-    setLoading(true);
-    const resp = await fetch("api/items", {
-      method: "put",
-      body: JSON.stringify(item),
-    });
-    await getItems();
-  };
-
-  const toggleCart = (item: Item) => {
-    item.inCart = !item.inCart;
-    updateItem(item);
-  };
-
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    createItem();
-    return false;
-  };
 
   const spawnVirus = (
     remove: () => void,
@@ -104,22 +52,44 @@ const Home: NextPage = () => {
     );
   };
 
-  useEffect(() => {
-    let virus: JSX.Element[] = [];
+  const createList = () => {
+    const id = createRandomID(4);
+    console.log(`Creating list with ID: ${id}`);
+    window.location.href = `?id=${id}`;
+  };
 
+  const readListId = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    if (id != null) {
+      refListId.current = id;
+    }
+  };
+
+  const loadItems = () => {
+    setLoading(true);
+    allItems(refListId.current).then((items) => {
+      setItems(items);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    // spawn virus
     setVirus1(spawnVirus(() => setVirus1(<div></div>), 3, 10));
     setVirus2(spawnVirus(() => setVirus2(<div></div>), 2, 8));
     setVirus3(spawnVirus(() => setVirus3(<div></div>), 3, 11, false));
     setVirus4(spawnVirus(() => setVirus4(<div></div>), 3.5, 12, false));
     setVirus5(spawnVirus(() => setVirus5(<div></div>), 4, 13));
 
-    getItems();
+    readListId();
+    loadItems();
   }, []);
 
   return (
     <div className="flex flex-col justify-start items-center h-full overflow-x-hidden">
       <Head>
-        <title>Quarantine List</title>
+        <title>Quarantine Shopping</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="Quarantine 🦠 List"
@@ -143,59 +113,35 @@ const Home: NextPage = () => {
 
       {/* HEADER */}
       <br />
-      <h2 className="text-2xl font-Marker">
+      <h2
+        className="text-2xl font-Marker"
+        onClick={() => (window.location.href = `/`)}
+      >
         Quarantine{" "}
-        {loading ? <span className="loader">🦠</span> : <span>🦠</span>} List
+        {loading ? <span className="loader">🦠</span> : <span>🦠</span>}{" "}
+        Shopping
       </h2>
       <br />
 
-      {/* ITEMS */}
-      {items.length == 0 && !loading && (
-        <div className="font-IndieFlower text-xl text-center">
-          Add your stuff and I&apos;ll buy it. <br /> Cheers ❤️
+      {/* ITEMS && FORM */}
+      {refListId.current != "" && (
+        <>
+          <Items items={items} reload={() => loadItems()} />
+          <Form listId={refListId.current} reload={() => loadItems()} />
+        </>
+      )}
+
+      {/* CREATE LIST */}
+      {refListId.current == "" && (
+        <div className="className=flex flex-col gap-2 mt-2 mx-24">
+          <div className="font-IndieFlower text-xl text-center">
+            Create a list and let your friends know what they need to buy for
+            you.
+          </div>
+          <br />
+          <Button onClick={() => createList()}>Create List</Button>
         </div>
       )}
-      {items.map((item, index) => (
-        <div
-          className="flex gap-5 px-5 font-IndieFlower text-xl"
-          key={item.key}
-        >
-          <div onClick={() => deleteItem(item.key!)}>❌</div>
-          <div className="break-all">
-            {item.inCart && (
-              <s>
-                {index + 1}. {item.name}
-              </s>
-            )}
-            {!item.inCart && (
-              <div>
-                {index + 1}. {item.name}
-              </div>
-            )}
-          </div>
-          <div className="" onClick={() => toggleCart(item)}>
-            🛒
-          </div>
-        </div>
-      ))}
-
-      {/* FORM */}
-      <form
-        className="flex flex-col gap-2 mt-2"
-        onSubmit={(e) => submitForm(e)}
-        autoComplete="off"
-      >
-        <Input
-          id="name"
-          type="text"
-          required
-          placeholder="Item..."
-          value={newItem}
-          onChange={(e) => setNewItem(e.target.value)}
-        />
-        <Button type="submit">Add</Button>
-      </form>
-      <br />
 
       {/* SPACER */}
       <div className="flex-1"></div>
