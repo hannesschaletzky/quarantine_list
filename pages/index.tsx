@@ -142,7 +142,7 @@ const Home: NextPage = () => {
           <Items items={items} reload={() => loadItems()} />
           <Form listId={refListId.current} reload={() => loadItems()} />
           <br />
-          {items.length > 0 && (
+          {items.length > 0 && navigator.share && (
             <div onClick={() => shareList()}>
               <ShareButton>Share</ShareButton>
             </div>
