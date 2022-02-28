@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
-import { Button } from "@/styles/UI_Elements";
+import { Button, ShareButton } from "@/styles/UI_Elements";
 import { useEffect, useRef, useState } from "react";
 import { Virus, moveInCircles, rotateClockWise } from "@/styles/virus";
 
@@ -74,6 +74,19 @@ const Home: NextPage = () => {
     });
   };
 
+  const shareList = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Quarantine Shopping List",
+          text: "Please buy me these things for my corona quarantine ❤️",
+          url: window.location.href,
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error sharing", error));
+    }
+  };
+
   useEffect(() => {
     // spawn virus
     setVirus1(spawnVirus(() => setVirus1(<div></div>), 3, 10));
@@ -92,14 +105,14 @@ const Home: NextPage = () => {
         <title>Quarantine Shopping</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
-          name="Quarantine 🦠 List"
-          content="Add your stuff and I'll buy it. Cheers ❤️"
+          name="Quarantine 🦠 Shopping"
+          content="Let your friends know what they should buy for you ❤️"
         />
         <meta name="keywords" content="Corona, Quarantine, List, Buying, Fun" />
-        <meta property="og:title" content="Quarantine 🦠 List" />
+        <meta property="og:title" content="Quarantine 🦠 Shopping" />
         <meta
           property="og:description"
-          content="Add your stuff and I'll buy it. Cheers ❤️"
+          content="Let your friends know what they should buy for you ❤️"
         />
         <meta property="og:type" content="website" />
       </Head>
@@ -128,6 +141,12 @@ const Home: NextPage = () => {
         <>
           <Items items={items} reload={() => loadItems()} />
           <Form listId={refListId.current} reload={() => loadItems()} />
+          <br />
+          {items.length > 0 && (
+            <div onClick={() => shareList()}>
+              <ShareButton>Share</ShareButton>
+            </div>
+          )}
         </>
       )}
 
@@ -136,7 +155,7 @@ const Home: NextPage = () => {
         <div className="className=flex flex-col gap-2 mt-2 mx-24">
           <div className="font-IndieFlower text-xl text-center">
             Create a list and let your friends know what they need to buy for
-            you.
+            you. 🛒
           </div>
           <br />
           <Button onClick={() => createList()}>Create List</Button>

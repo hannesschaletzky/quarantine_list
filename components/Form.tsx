@@ -22,21 +22,23 @@ const Form = (props: { listId: string; reload: () => void }) => {
   };
 
   return (
-    <form
-      className="flex flex-col gap-2 mt-2"
-      onSubmit={(e) => submitForm(e)}
-      autoComplete="off"
-    >
-      <Input
-        id="name"
-        type="text"
-        required
-        placeholder="Item..."
-        value={newItem}
-        onChange={(e) => setNewItem(e.target.value)}
-      />
-      <Button type="submit">Add</Button>
-    </form>
+    <>
+      <form
+        className="flex flex-col gap-2 mt-2"
+        onSubmit={(e) => submitForm(e)}
+        autoComplete="off"
+      >
+        <Input
+          id="name"
+          type="text"
+          required
+          placeholder="Item..."
+          value={newItem}
+          onChange={(e) => setNewItem(e.target.value)}
+        />
+        <Button type="submit">Add</Button>
+      </form>
+    </>
   );
 };
 

@@ -31,6 +31,10 @@ export const Button = styled.button`
   width: 100%;
 `;
 
+export const ShareButton = styled(Button)`
+  background-color: gray;
+`;
+
 export const Input = styled.input`
   text-align: center;
   border-radius: 8px;
