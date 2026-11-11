@@ -1,15 +1,15 @@
-import type { NextPage } from "next";
-import Image from "next/image";
-import Head from "next/head";
 import { Button, ShareButton } from "@/styles/UI_Elements";
-import React, { useEffect, useRef, useState } from "react";
 import { Virus, moveInCircles, rotateClockWise } from "@/styles/virus";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 
-import Items from "@/components/List";
 import Form from "@/components/Form";
+import Items from "@/components/List";
 
-import { Item } from "@/utils/types";
 import { allItems } from "@/utils/repository";
+import { Item } from "@/utils/types";
 
 const createRandomID = (length: number) => {
   let result = "";
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
     remove: () => void,
     rotS: number,
     moveS: number,
-    clockWise: boolean = true
+    clockWise: boolean = true,
   ) => {
     return (
       <Virus
@@ -124,10 +124,15 @@ const Home: NextPage = () => {
       {Virus4}
       {Virus5}
 
+      {/* SPACER: auf der Startseite Titel, Text und Button senkrecht mittig */}
+      {refListId.current == "" && <div className="flex-1"></div>}
+
       {/* HEADER */}
       <br />
       <h2
-        className="font-Marker text-2xl cursor-pointer"
+        className={`font-Marker cursor-pointer text-center ${
+          refListId.current == "" ? "text-3xl sm:text-4xl px-4" : "text-2xl"
+        }`}
         onClick={() => (window.location.href = `/`)}
       >
         Quarantine{" "}
@@ -152,15 +157,19 @@ const Home: NextPage = () => {
 
       {/* CREATE LIST */}
       {refListId.current == "" && (
-        <div className="className=flex flex-col gap-2 mt-2 mx-24">
+        <div className="flex flex-col items-center gap-8 mt-4 px-4 max-w-xs">
           <div className="font-IndieFlower text-xl text-center">
             Create a list and let your friends know what they need to buy for
-            your quarantine. 🛒 <br /> Also, shoot the virus to save the
-            planet!! ❤️
+            your quarantine 🛒 <br /> Also, shoot the virus to save the planet!!
+            ❤️
           </div>
-          <br />
-          <div className="mx-auto w-fit">
-            <Button onClick={() => createList()}>Create List</Button>
+          <div className="w-fit">
+            <Button
+              onClick={() => createList()}
+              style={{ fontSize: "18px", padding: "16px 32px" }}
+            >
+              Create List
+            </Button>
           </div>
         </div>
       )}
