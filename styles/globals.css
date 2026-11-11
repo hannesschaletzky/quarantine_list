@@ -1,6 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-Marker: "PermanentMarker", cursive;
+  --font-IndieFlower: "IndieFlower", cursive;
+}
+
+/* Tailwind 4 setzt Formularfelder auf transparent, Tailwind 2 liess sie weiss */
+@layer base {
+  input {
+    background-color: #fff;
+  }
+}
 
 @font-face {
   font-family: "IndieFlower";

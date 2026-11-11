@@ -123,10 +123,10 @@ export const rotateClockWise = (clockWise: boolean = false): Keyframes => {
 };
 
 interface Virus {
-  moveKF: Keyframes; // moving: keyframe
-  moveS: number; // moving: seconds
-  rotKF: Keyframes; // rotation: keyfram
-  rotS: number; // rotation: seconds
+  $moveKF: Keyframes; // moving: keyframe
+  $moveS: number; // moving: seconds
+  $rotKF: Keyframes; // rotation: keyfram
+  $rotS: number; // rotation: seconds
 }
 
 export const Virus = styled.div<Virus>`
@@ -138,8 +138,8 @@ export const Virus = styled.div<Virus>`
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: ${({ rotKF }) => rotKF} ${({ rotS }) => rotS}s linear infinite,
-    ${({ moveKF }) => moveKF} ${({ moveS }) => moveS}s linear infinite;
+  animation: ${({ $rotKF }) => $rotKF} ${({ $rotS }) => $rotS}s linear infinite,
+    ${({ $moveKF }) => $moveKF} ${({ $moveS }) => $moveS}s linear infinite;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent; /* For some Androids */
   user-select: none;

@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
 import { Button, ShareButton } from "@/styles/UI_Elements";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Virus, moveInCircles, rotateClockWise } from "@/styles/virus";
 
 import Items from "@/components/List";
@@ -27,11 +27,11 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(true);
   const refListId = useRef("");
 
-  const [Virus1, setVirus1] = useState<JSX.Element>();
-  const [Virus2, setVirus2] = useState<JSX.Element>();
-  const [Virus3, setVirus3] = useState<JSX.Element>();
-  const [Virus4, setVirus4] = useState<JSX.Element>();
-  const [Virus5, setVirus5] = useState<JSX.Element>();
+  const [Virus1, setVirus1] = useState<React.JSX.Element>();
+  const [Virus2, setVirus2] = useState<React.JSX.Element>();
+  const [Virus3, setVirus3] = useState<React.JSX.Element>();
+  const [Virus4, setVirus4] = useState<React.JSX.Element>();
+  const [Virus5, setVirus5] = useState<React.JSX.Element>();
 
   const spawnVirus = (
     remove: () => void,
@@ -41,10 +41,10 @@ const Home: NextPage = () => {
   ) => {
     return (
       <Virus
-        rotS={rotS}
-        rotKF={rotateClockWise(clockWise)}
-        moveS={moveS}
-        moveKF={moveInCircles(clockWise)}
+        $rotS={rotS}
+        $rotKF={rotateClockWise(clockWise)}
+        $moveS={moveS}
+        $moveKF={moveInCircles(clockWise)}
         onClick={() => remove()}
       >
         🦠
@@ -142,7 +142,7 @@ const Home: NextPage = () => {
           <Items items={items} reload={() => loadItems()} />
           <Form listId={refListId.current} reload={() => loadItems()} />
           <br />
-          {items.length > 0 && navigator.share && (
+          {items.length > 0 && "share" in navigator && (
             <div onClick={() => shareList()}>
               <ShareButton>Share</ShareButton>
             </div>

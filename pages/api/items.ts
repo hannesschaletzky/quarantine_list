@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   let { body, method } = req;
-  let respBody = {};
+  let respBody: unknown = {};
   const db = getDB();
 
   if (method === "POST") {

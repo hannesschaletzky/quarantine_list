@@ -12,7 +12,7 @@ export default async function handler(
     method,
     query: { id },
   } = req;
-  let respBody = {};
+  let respBody: unknown = {};
 
   if (method === "DELETE") {
     respBody = await db.delete(id);
