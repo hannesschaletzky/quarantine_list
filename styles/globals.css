@@ -5,10 +5,13 @@
   --font-IndieFlower: "IndieFlower", cursive;
 }
 
-/* Tailwind 4 setzt Formularfelder auf transparent, Tailwind 2 liess sie weiss */
+/* Tailwind 4 setzt Formularfelder auf transparent und Platzhalter auf halbe Textfarbe, Tailwind 2 nicht */
 @layer base {
   input {
     background-color: #fff;
+  }
+  input::placeholder {
+    color: #9ca3af;
   }
 }
 

@@ -10,7 +10,7 @@ export const Button = styled.button`
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: din-round, sans-serif;
+  font-family: "PermanentMarker", cursive;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.8px;
@@ -40,5 +40,5 @@ export const Input = styled.input`
   border-radius: 8px;
   border: none;
   padding: 8px;
-  font-family: din-round, sans-serif;
+  font-family: "IndieFlower", cursive;
 `;

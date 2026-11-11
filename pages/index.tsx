@@ -159,7 +159,9 @@ const Home: NextPage = () => {
             planet!! ❤️
           </div>
           <br />
-          <Button onClick={() => createList()}>Create List</Button>
+          <div className="mx-auto w-fit">
+            <Button onClick={() => createList()}>Create List</Button>
+          </div>
         </div>
       )}
 
